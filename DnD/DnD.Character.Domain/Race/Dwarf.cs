@@ -6,7 +6,7 @@ namespace DnD.Characters.Domain
 {
     public class Dwarf : Race
     {
-        private int ConstitutionBonus = 2;
+        private readonly int ConstitutionBonus = 2;
 
         public override void ApplyEffects(Character character)
         {

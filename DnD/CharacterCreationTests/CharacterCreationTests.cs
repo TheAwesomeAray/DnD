@@ -73,7 +73,7 @@ namespace CharacterCreationTests
                 var dummy = new Mock<Race>();
                 character.AssignRace(dummy.Object);
                 
-                dummy.Verify(r => r.ApplyEffects(character), Times.Once);
+                dummy.Verify(d => d.ApplyEffects(character), Times.Once);
             }
 
             [Fact]
@@ -81,9 +81,36 @@ namespace CharacterCreationTests
             {
                 var character = new Character();
                 var dummy = new Mock<Race>();
-                character.RemoveRace(dummy.Object);
+                character.AssignRace(dummy.Object);
+                character.RemoveRace();
 
-                dummy.Verify(r => r.RemoveEffects(character), Times.Once);
+                dummy.Verify(d => d.RemoveEffects(character), Times.Once);
+            }
+
+            [Fact]
+            public void RaceShouldNotBeRemovedIfNoRaceIsAssigned()
+            {
+                var character = new Character();
+                var dummy = new Mock<Race>();
+                character.AssignRace(dummy.Object);
+                character.RemoveRace();
+                character.RemoveRace();
+
+                dummy.Verify(d => d.RemoveEffects(character), Times.Once);
+            }
+
+            [Fact]
+            public void ApplyRaceWhenRaceIsAlreadyAssignedRemovesCurrentRace()
+            {
+                var character = new Character();
+                var dwarfDummy = new Mock<Dwarf>();
+                var elfDummy = new Mock<Elf>();
+                character.AssignRace(dwarfDummy.Object);
+                character.AssignRace(elfDummy.Object);
+
+                dwarfDummy.Verify(d => d.ApplyEffects(character), Times.Once);
+                dwarfDummy.Verify(d => d.RemoveEffects(character), Times.Once);
+                elfDummy.Verify(e => e.ApplyEffects(character), Times.Once);
             }
 
             public class RaceData : TheoryData<Race>
@@ -93,12 +120,60 @@ namespace CharacterCreationTests
                     Add(new Dwarf());
                     Add(new Elf());
                     Add(new Human());
+                    Add(null);
                 }
             }
         }
 
+        
+        public class ClassTests
+        {
+            [Theory]
+            [ClassData(typeof(ClassData))]
+            public void CharacterShouldBeAssignedAClass(Class characterClass)
+            {
+                var character = new Character();
 
+                character.AssignClass(characterClass);
 
+                Assert.Equal(characterClass, character.Class);
+            }
+
+            [Fact]
+            public void CharacterClassShouldApplyClassBenefitsWhenAssigned()
+            {
+                var character = new Character();
+                var bardDummy = new Mock<Bard>();
+                character.AssignClass(bardDummy.Object);
+
+                bardDummy.Verify(d => d.ApplyEffects(character), Times.Once);
+            }
+
+            [Fact]
+            public void CharacterShouldRemoveCurrentClassWhenAssignNewClass()
+            {
+                var character = new Character();
+                var bardDummy = new Mock<Bard>();
+                var barbarianDummy = new Mock<Barbarian>();
+                character.AssignClass(bardDummy.Object);
+                character.AssignClass(barbarianDummy.Object);
+
+                bardDummy.Verify(d => d.ApplyEffects(character), Times.Once);
+                bardDummy.Verify(d => d.RemoveEffects(character), Times.Once);
+                barbarianDummy.Verify(e => e.ApplyEffects(character), Times.Once);
+            }
+        }
+
+        public class ClassData : TheoryData<Class>
+        {
+            public ClassData()
+            {
+                Add(new Wizard());
+                Add(new Barbarian());
+                Add(new Bard());
+                Add(null);
+            }
+        }
 
         //Track Progress through creation
         //XP
