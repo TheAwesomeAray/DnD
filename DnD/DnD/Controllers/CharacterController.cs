@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using DnD.Characters.Data;
+﻿using DnD.Characters.Data;
 using DnD.Characters.Domain;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DnD.Controllers
 {
-    public class CharacterController
+    public class CharacterController : Controller
     {
-        private ICharacterRepository repo;
+        private ICharacterRepository _characterRepository;
 
-        public CharacterController(ICharacterRepository repo)
+        public CharacterController(ICharacterRepository characterRepository)
         {
-            this.repo = repo;
+            _characterRepository = characterRepository;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -22,9 +25,10 @@ namespace DnD.Controllers
             return character;
         }
 
+        [HttpGet]
         public IEnumerable<Character> Get()
         {
-            return repo.Characters;
+            return _characterRepository.Characters;
         }
     }
 }

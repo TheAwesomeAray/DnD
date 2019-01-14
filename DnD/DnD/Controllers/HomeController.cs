@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DnD.Models;
 using Microsoft.AspNetCore.Mvc;
-using DnD.Models;
+using System.Diagnostics;
 
 namespace DnD.Controllers
 {

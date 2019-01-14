@@ -1,4 +1,6 @@
 ﻿using DnD.Characters.Domain.Enums;
+using System;
+using System.Collections.Generic;
 
 namespace DnD.Characters.Domain
 {
@@ -7,6 +9,7 @@ namespace DnD.Characters.Domain
         public CharacterCreationStatus CreationStatus { get; private set; }
         public Race Race { get; private set; }
         public Class Class { get; private set; }
+        public List<Ability> Abilities { get; internal set; } = new List<Ability>();
 
         public int Strength { get; internal set; }
         public int Dexterity { get; internal set; }
@@ -14,6 +17,7 @@ namespace DnD.Characters.Domain
         public int Intelligence { get; internal set; }
         public int Wisdom { get; internal set; }
         public int Charisma { get; internal set; }
+        
 
         public Character()
         {
@@ -52,6 +56,15 @@ namespace DnD.Characters.Domain
 
             Class = characterClass;
             Class.ApplyEffects(this);
+        }
+
+        public void RemoveClass()
+        {
+            if (Class == null)
+                return;
+
+            Class.RemoveEffects(this);
+            Class = null;
         }
     }
 }

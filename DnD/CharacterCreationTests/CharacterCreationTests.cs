@@ -3,11 +3,10 @@ using DnD.Characters.Domain;
 using DnD.Characters.Domain.Enums;
 using DnD.Controllers;
 using Moq;
-using System.Collections;
 using System.Collections.Generic;
 using Xunit;
 
-namespace CharacterCreationTests
+namespace DnD.UnitTests
 {
     public class CharacterCreationTests
     {
@@ -162,16 +161,74 @@ namespace CharacterCreationTests
                 bardDummy.Verify(d => d.RemoveEffects(character), Times.Once);
                 barbarianDummy.Verify(e => e.ApplyEffects(character), Times.Once);
             }
-        }
 
-        public class ClassData : TheoryData<Class>
-        {
-            public ClassData()
+            public class ClassData : TheoryData<Class>
             {
-                Add(new Wizard());
-                Add(new Barbarian());
-                Add(new Bard());
-                Add(null);
+                public ClassData()
+                {
+                    Add(new Wizard());
+                    Add(new Barbarian());
+                    Add(new Bard());
+                    Add(null);
+                }
+            }
+
+            [Fact]
+            public void AbilitiesAssociatedWithAClassAreAddedToTheCharacter()
+            {
+                var character = new Character();
+                var bard = new Bard();
+                character.AssignClass(bard);
+
+                foreach (var ability in bard.Abilities)
+                    Assert.Contains(ability, character.Abilities);
+            }
+
+            [Fact]
+            public void WhenClassIsAssignedAbilitiesAreAddedToCharacter()
+            {
+                var character = new Character();
+                var bard = new Bard();
+                character.AssignClass(bard);
+
+                foreach (var ability in bard.Abilities)
+                    Assert.Contains(ability, character.Abilities);
+            }
+
+            [Fact]
+            public void ClassShouldNotBeRemovedIfNoClassIsAssigned()
+            {
+                var character = new Character();
+                var dummy = new Mock<Bard>();
+                character.AssignClass(dummy.Object);
+                character.RemoveClass();
+                character.RemoveClass();
+
+                dummy.Verify(d => d.RemoveEffects(character), Times.Once);
+            }
+
+            [Fact]
+            public void WhenClassIsRemovedAbilitiesAreRemovedFromCharacter()
+            {
+                var character = new Character();
+                var bard = new Bard();
+                character.AssignClass(bard);
+                character.RemoveClass();
+
+                foreach (var ability in bard.Abilities)
+                    Assert.DoesNotContain(ability, character.Abilities);
+            }
+
+            [Fact]
+            public void WhenClassContainsDuplicateAbilitiesBothAreNotRemoved()
+            {
+                var character = new Character();
+                character.Abilities.Add(new BardicInspiration());
+                var bard = new Bard();
+                character.AssignClass(bard);
+                character.RemoveClass();
+                
+                Assert.Contains(new BardicInspiration(), character.Abilities);
             }
         }
 
