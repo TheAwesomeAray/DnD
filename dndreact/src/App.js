@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MainMenu from './MainMenu';
+import CharacterMenu from './CharacterMenu';
+
+function initialCharacters() {
+  return [
+  { name: 'Ilin' },
+  { name: 'Kagor' },
+  { name: 'Bellocke' }]
+};
 
 class App extends Component {
+  state = {
+    characters: initialCharacters()
+  }
+  AddCharacter = (character) => {
+    this.setState((prevState) => ({
+      characters: prevState.characters.concat([character])
+    }));
+    
+  };
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <CharacterMenu characters={this.state.characters} AddCharacter={this.AddCharacter} />
       </div>
     );
   }
