@@ -8,7 +8,7 @@ const CharacterMenu = (props) => {
     return (
         <div className="body">
             <div className="side-panel">
-                <CharacterList characters={props.characters} />
+                <CharacterList characters={props.characters} characterAdded={props.characterAdded} />
             </div>
             <div className="primary-panel">
                 <CreateCharacter AddCharacter={props.AddCharacter} />
@@ -20,7 +20,7 @@ const CharacterMenu = (props) => {
 class CreateCharacter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = CreateCharacter.initialState();
+        this.state = CreateCharacter.initialState(true);
         this.onFieldChange = this.onFieldChange.bind(this);
     }
     static initialState = () => ({
@@ -38,7 +38,7 @@ class CreateCharacter extends React.Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.AddCharacter(this.state);
-        this.setState(CreateCharacter.initialState());
+        this.setState(CreateCharacter.initialState(false));
     };
     onFieldChange(event) {
         this.setState({
@@ -141,7 +141,8 @@ const CharacterList = (props) => {
     return (
         <div className="float-left bg-dark side-panel">
             {props.characters.map((character, i) => 
-                <CharacterPanel key={i} character={character} animationDelay={i*.5 + "s"} />)}
+                <CharacterPanel key={i} character={character} 
+                                animationDelay={ props.characterAdded ? "0s" : i*.25 + "s" } />)}
         </div>
     );
 }

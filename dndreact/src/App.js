@@ -12,18 +12,21 @@ function initialCharacters() {
 
 class App extends Component {
   state = {
-    characters: initialCharacters()
+    characters: initialCharacters(),
+    characterAdded: false
   }
   AddCharacter = (character) => {
     this.setState((prevState) => ({
-      characters: prevState.characters.concat([character])
+      characters: prevState.characters.concat([character]),
+      characterAdded: true
     }));
     
   };
   render() {
     return (
       <div className="App">
-        <CharacterMenu characters={this.state.characters} AddCharacter={this.AddCharacter} />
+        <CharacterMenu {...this.state} 
+                       AddCharacter={this.AddCharacter} />
       </div>
     );
   }
