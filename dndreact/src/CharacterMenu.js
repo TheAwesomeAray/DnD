@@ -19,23 +19,25 @@ const CharacterMenu = (props) => {
 class CreateCharacter extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            name: '',
-            abilityScores: [
-                { name: 'Strength', value: null },
-                { name: 'Dexterity', value: null },
-                { name: 'Constitution', value: null },
-                { name: 'Intelligence', value: null },
-                { name: 'Wisdom', value: null },
-                { name: 'Charisma', value: null }
-            ],
-            rollResult: null
-        };
+        this.state = CreateCharacter.initialState();
         this.onFieldChange = this.onFieldChange.bind(this);
     }
+    static initialState = () => ({
+        name: '',
+        abilityScores: [
+            { name: 'Strength', value: null },
+            { name: 'Dexterity', value: null },
+            { name: 'Constitution', value: null },
+            { name: 'Intelligence', value: null },
+            { name: 'Wisdom', value: null },
+            { name: 'Charisma', value: null }
+        ],
+        rollResult: null
+    });
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.AddCharacter(this.state);
+        this.setState(CreateCharacter.initialState());
     };
     onFieldChange(event) {
         this.setState({
@@ -60,10 +62,7 @@ class CreateCharacter extends React.Component {
                 abilityScores[i].value = this.state.rollResult
                 break;
             }
-                
-            
         }
-        console.log(abilityScores);
         return abilityScores;
     };
     render() {
