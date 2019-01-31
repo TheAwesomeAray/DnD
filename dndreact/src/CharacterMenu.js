@@ -1,6 +1,7 @@
 import React from 'react';
 import './bootstrap.min.css';
-import './App.css'
+import './App.css';
+import './CharacterMenu.css';
 
 
 const CharacterMenu = (props) => {
@@ -139,14 +140,15 @@ const DieRoll = (props) => {
 const CharacterList = (props) => {
     return (
         <div className="float-left bg-dark side-panel">
-            {props.characters.map((character, i) => <CharacterPanel key={i} character={character} />)}
+            {props.characters.map((character, i) => 
+                <CharacterPanel key={i} character={character} animationDelay={i*.5 + "s"} />)}
         </div>
     );
 }
 
 const CharacterPanel = (props) => {
-    return (
-        <div className="panel bg-light m-2 p-4 character-panel">
+    return ( 
+        <div className="panel bg-light m-2 p-4 character-panel slide" style={{animationDelay: props.animationDelay }}>
             {props.character.name}
         </div>
     );

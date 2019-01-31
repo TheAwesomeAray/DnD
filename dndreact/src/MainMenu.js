@@ -12,7 +12,6 @@ const MainMenu = () => {
 
 export default MainMenu;
 
-
 const CreateButton = (props) => {
     return (
         <div>
