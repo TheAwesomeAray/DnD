@@ -2,20 +2,58 @@ import React from 'react';
 import './bootstrap.min.css';
 import './App.css';
 import './CharacterMenu.css';
+import { connect } from 'react-redux';
 
-
-const CharacterMenu = (props) => {
+const CharacterMenu = connect(mapStateToProps, mapDispatchToProps)(
+    function ({characters, characterAdded, onCharacterAdded}) {
     return (
         <div className="body">
+        <Menu />
             <div className="side-panel">
-                <CharacterList characters={props.characters} characterAdded={props.characterAdded} />
+                <CharacterList characters={characters} characterAdded={characterAdded} />
             </div>
             <div className="primary-panel">
-                <CreateCharacter AddCharacter={props.AddCharacter} />
+                <CreateCharacter AddCharacter={onCharacterAdded} />
             </div>
         </div>
     );
-}
+});
+
+function mapStateToProps(state) {
+    return {
+      characters: state.characters,
+      characterAdded: state.characterAdded
+    }
+  }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      onCharacterAdded: (character) => {
+        dispatch({type: 'CHARACTER_ADDED', character})
+      }
+    }
+  }
+
+const Menu = () => {
+    return (
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a className="navbar-brand" href="/">Dungeons and Dragons</a>
+       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item active">
+              <a className="nav-link" href="/">Character Creation <span className="sr-only">(current)</span></a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/StoryMode">Story Mode</a>
+            </li>
+          </ul>
+    </div>
+    </nav>
+    );
+  }
 
 class CreateCharacter extends React.Component {
     constructor(props) {
