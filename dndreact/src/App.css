@@ -1,0 +1,13 @@
+.side-panel {
+  height: 1440px;
+  width: 250px;
+  position: fixed;
+}
+
+.character-panel {
+  border-radius: 15px;
+}
+
+.primary-panel {
+  margin-left: 250px;
+}
