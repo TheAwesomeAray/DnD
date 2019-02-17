@@ -1,39 +1,12 @@
-using DnD.Characters.Data;
-using DnD.Characters.Domain;
-using DnD.Characters.Domain.Enums;
-using DnD.Controllers;
+using DnD.Characters.Core.Entities;
+using DnD.Characters.Core.Enums;
 using Moq;
-using System.Collections.Generic;
 using Xunit;
 
 namespace DnD.UnitTests
 {
     public class CharacterCreationTests
     {
-        [Fact]
-        public void PostReturnsCreatedCharacter()
-        {
-            var controller = new CharacterController(new Mock<ICharacterRepository>().Object);
-            var expected = new Character();
-
-            var actual = controller.Post(expected);
-
-            Assert.Equal(expected, actual);
-        }
-
-        [Fact]
-        public void GetReturnsCharacterInRepository()
-        {
-            var character1 = new Character();
-            var repo = new Mock<ICharacterRepository>();
-            repo.Setup(r => r.Characters).Returns(new List<Character>() { character1 });
-            var controller = new CharacterController(repo.Object);
-            
-            var characters = controller.Get();
-
-            Assert.Contains(character1, characters);
-        }
-
         [Fact]
         public void NewlyCreatedCharactersShouldBeGivenStartStatus()
         {

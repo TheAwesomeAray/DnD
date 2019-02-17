@@ -1,4 +1,4 @@
-﻿namespace DnD.Characters.Domain.Enums
+﻿namespace DnD.Characters.Core.Enums
 {
     public enum CharacterCreationStatus
     {

@@ -1,4 +1,4 @@
-using DnD.Characters.Domain;
+using DnD.Characters.Core.Entities;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -11,17 +11,15 @@ namespace DnD.IntegrationTests
     {
         private WebApplicationFactory<TestStartup> _factory;
 
-        public CharacterCreationTests(WebApplicationFactory<DnD.TestStartup> factory)
+        public CharacterCreationTests(WebApplicationFactory<TestStartup> factory)
         {
             _factory = factory;
         }
 
         [Theory]
-        [InlineData("/Home")]
-        [InlineData("/Character")]
-        //[InlineData("/About")]
-        //[InlineData("/Privacy")]
-        //[InlineData("/Contact")]
+        [InlineData("/")]
+        [InlineData("/ManageCharacter")]
+        [InlineData("/Privacy")]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             var client = _factory.CreateClient();
@@ -34,14 +32,14 @@ namespace DnD.IntegrationTests
         }
 
         [Fact]
-        public async Task GetReturnsCharactersFromDatabase()
+        public async Task ReturnsManageCharacterPageListing()
         {
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync("/Character/Get");
-            var responseBody = await response.Content.ReadAsAsync<IEnumerable<Character>>();
+            var response = await client.GetAsync("/ManageCharacter");
+            var stringResponse = await response.Content.ReadAsStringAsync();
 
-            Assert.IsType(new List<Character>().GetType(), responseBody);
+            Assert.Contains("ManageCharacter", stringResponse);
         }
     }
 }
