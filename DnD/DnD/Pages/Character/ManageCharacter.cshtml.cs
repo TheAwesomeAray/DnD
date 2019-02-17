@@ -13,7 +13,7 @@ namespace DnD.Pages.Character
             _characterRepository = characterRepository;
         }
 
-        public ManageCharacterViewModel CharacterModel { get; set; } = new ManageCharacterViewModel();
+        public CharacterViewModel CharacterModel { get; set; } = new CharacterViewModel();
 
         public void OnGet(int? id)
         {
