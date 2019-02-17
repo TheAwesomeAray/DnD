@@ -23,7 +23,9 @@
     @foreach (var character in Model.Characters)
     {
         <div class="row">
-            <span>@character.Name</span>
+            <div class="col-4">
+                <a asp-page="./ManageCharacter" asp-route-chracterId="@character.Id">@character.Name</a>
+            </div>
         </div>
     }
 </div>
