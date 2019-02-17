@@ -15,8 +15,8 @@ namespace DnD.FunctionalTests
 
         
         [Theory]
-        [InlineData("/Character/CharacterList")]
-        [InlineData("/Character/ManageCharacter")]
+        [InlineData("/ChatacterList")]
+        [InlineData("/ManageCharacter")]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             var client = _factory.CreateClient();
@@ -33,7 +33,7 @@ namespace DnD.FunctionalTests
         {
             var client = _factory.CreateClient();
 
-            var response = await client.GetAsync("/Character/ManageCharacter");
+            var response = await client.GetAsync("/ManageCharacter");
             var stringResponse = await response.Content.ReadAsStringAsync();
 
             Assert.Contains("Manage Character", stringResponse);

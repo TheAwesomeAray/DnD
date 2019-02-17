@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Threading.Tasks;
 
-namespace DnD.Pages
+namespace DnD.Pages.Character
 {
     public class ManageCharacterModel : PageModel
     {
@@ -13,17 +13,11 @@ namespace DnD.Pages
             _characterRepository = characterRepository;
         }
 
-        //public Task OnPost(Character character)
-        //{
-        //    await _chara;
-        //}
+        public ManageCharacterViewModel CharacterModel { get; set; } = new ManageCharacterViewModel();
 
-        public async Task OnGet()
+        public void OnGet(int? id)
         {
-             await _characterRepository.ListAllAsync();
         }
-
-        //public class IEnumerable<ManageCharacterViewModel> CharacterModels { get; set; }
     }
 
     
