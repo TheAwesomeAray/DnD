@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.UnitTests", "CharacterC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.Characters.Core", "DnD.Character.Domain\DnD.Characters.Core.csproj", "{17D37158-1452-4CB2-8D9E-EE91101532D3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.Characters.Infrastrtucture", "DnD.Characters.Data\DnD.Characters.Infrastrtucture.csproj", "{FCF100EF-AE10-4344-9027-16D9B8F8D3E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DnD.Characters.Infrastructure", "DnD.Characters.Data\DnD.Characters.Infrastructure.csproj", "{FCF100EF-AE10-4344-9027-16D9B8F8D3E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6AF310BC-129D-42AC-9D0E-C8118DD403E5}"
 EndProject

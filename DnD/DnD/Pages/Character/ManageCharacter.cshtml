@@ -7,6 +7,7 @@
 
 <h1>Manage Character</h1>
 <form action="/Update">
+    <input type="hidden" asp-for="CharacterModel.Id" />
     @Html.HiddenFor(x => x.CharacterModel.Id)
     <label asp-for="CharacterModel.Id">Name</label>
     <input asp-for="CharacterModel.Name" />

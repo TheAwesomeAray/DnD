@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DnD.Characters.Data\DnD.Characters.Infrastrtucture.csproj" />
+    <ProjectReference Include="..\DnD.Characters.Data\DnD.Characters.Infrastructure.csproj" />
     <ProjectReference Include="..\DnD\DnD.csproj" />
   </ItemGroup>
 

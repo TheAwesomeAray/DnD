@@ -21,10 +21,10 @@ namespace DnD
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             // use in-memory database
-            ConfigureInMemoryDatabases(services);
+            //ConfigureInMemoryDatabases(services);
 
             // use real database
-            // ConfigureProductionServices(services);
+            ConfigureProductionServices(services);
         }
 
         private void ConfigureInMemoryDatabases(IServiceCollection services)
@@ -32,6 +32,15 @@ namespace DnD
             // use in-memory database
             services.AddDbContext<DnDContext>(c =>
                 c.UseInMemoryDatabase("DnD"));
+
+            ConfigureServices(services);
+        }
+
+        private void ConfigureProductionServices(IServiceCollection services)
+        {
+            // use in-memory database
+            services.AddDbContext<DnDContext>(c =>
+                c.UseSqlServer(Configuration["ConnectionString"]));
 
             ConfigureServices(services);
         }
